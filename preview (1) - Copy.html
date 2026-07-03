@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Question ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Marck Script', cursive;
+}
+
+body{
+    background:
+        linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
+        url("background_before.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:background 1s ease;
+}
+
+.card{
+    background:none
+    backdrop-filter:none
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:none
+    width:500px;
+    max-width:90%;
+}
+
+h1{
+    color:white;
+    text-shadow:0 0 12px rgba(0,0,0,.8);
+}
+
+p{
+    color:white;
+    text-shadow:0 0 10px rgba(0,0,0,.8);
+}
+
+.buttons{
+    position:relative;
+    height:120px;
+}
+
+button{
+    padding:14px 32px;
+    font-size:20px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.25s;
+
+    background:rgba(255,255,255,0.2);   /* 80% transparent */
+    color:white;
+
+    backdrop-filter:blur(8px);
+
+    border:1px solid rgba(255,255,255,.35);
+
+    text-shadow:0 0 8px rgba(0,0,0,.8);
+}
+
+#no{
+    position:fixed;
+    z-index:1000;
+}
+
+#celebration{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    color:white;
+    text-shadow:2px 2px 10px black;
+    animation:fade .8s;
+}
+
+#celebration h1{
+    font-size:64px;
+    margin-bottom:20px;
+}
+
+#celebration p{
+    color:white;
+    font-size:30px;
+}
+
+.firefly{
+    position:fixed;
+    pointer-events:none;
+
+    animation:
+        floatUp linear forwards,
+        twinkle 2s ease-in-out infinite;
+
+    transform-origin:center;
+    filter:drop-shadow(0 0 14px rgba(255,240,120,.95));
+}
+
+@keyframes floatUp{
+
+    0%{
+        transform:
+            translate(0vw,0vh)
+            scale(.7)
+            rotate(0deg);
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    25%{
+        transform:
+            translate(calc(var(--drift)*-.35),-25vh)
+            rotate(-6deg);
+    }
+
+    50%{
+        transform:
+            translate(calc(var(--drift)*.45),-55vh)
+            rotate(7deg);
+    }
+
+    75%{
+        transform:
+            translate(calc(var(--drift)*-.4),-85vh)
+            rotate(-5deg);
+
+        opacity:1;
+    }
+
+    100%{
+        transform:
+            translate(calc(var(--drift)*.2),-110vh)
+            rotate(4deg);
+
+        opacity:0;
+    }
+
+}
+
+}
+
+@keyframes twinkle{
+
+    0%{
+        opacity:.25;
+        filter:drop-shadow(0 0 4px rgba(255,255,180,.4));
+    }
+
+    20%{
+        opacity:.9;
+        filter:drop-shadow(0 0 12px rgba(255,255,180,.9));
+    }
+
+    40%{
+        opacity:.4;
+        filter:drop-shadow(0 0 5px rgba(255,255,180,.5));
+    }
+
+    60%{
+        opacity:1;
+        filter:drop-shadow(0 0 18px rgba(255,255,180,1));
+    }
+
+    80%{
+        opacity:.5;
+        filter:drop-shadow(0 0 7px rgba(255,255,180,.6));
+    }
+
+    100%{
+        opacity:.85;
+        filter:drop-shadow(0 0 10px rgba(255,255,180,.8));
+    }
+
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="card">
+    <h1>Will you go to a cozy cabin in the woods with me? 🌲❤️</h1>
+
+    <p>
+        There will be hot chocolate ☕<br>
+        beautiful views 🌄<br>
+        and hopefully lots of laughs ❤️
+    </p>
+
+    <div class="buttons">
+        <button id="yes">Yes ❤️</button>
+        <button id="no">No 🙈</button>
+    </div>
+</div>
+
+<div id="celebration">
+    <h1>🥰 YAY!! 🥰</h1>
+
+    <p>
+        I can't wait for our little adventure together. ❤️🏕️
+    </p>
+</div>
+
+<script>
+
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const celebration = document.getElementById("celebration");
+
+window.addEventListener("load", () => {
+
+    const yesRect = yesBtn.getBoundingClientRect();
+
+    noBtn.style.left = (yesRect.right + 40) + "px";
+    noBtn.style.top = yesRect.top + "px";
+
+});
+window.addEventListener("load", () => {
+    noBtn.style.left = "60%";
+    noBtn.style.top = "55%";
+});
+
+let fireflyInterval;
+
+// ---------------------
+// Runaway No button
+// ---------------------
+
+function moveButton(mouseX, mouseY){
+
+    const rect = noBtn.getBoundingClientRect();
+
+    const centerX = rect.left + rect.width/2;
+    const centerY = rect.top + rect.height/2;
+
+    let dx = centerX - mouseX;
+    let dy = centerY - mouseY;
+
+    const length = Math.sqrt(dx*dx + dy*dy) || 1;
+
+    dx /= length;
+    dy /= length;
+
+    const jump = 180;
+
+    let newX = rect.left + dx * jump;
+    let newY = rect.top + dy * jump;
+
+    const padding = 40;
+
+    newX = Math.max(
+        padding,
+        Math.min(newX, window.innerWidth - rect.width - padding)
+    );
+
+    newY = Math.max(
+        padding,
+        Math.min(newY, window.innerHeight - rect.height - padding)
+    );
+
+    noBtn.style.left = newX + "px";
+    noBtn.style.top = newY + "px";
+}
+
+document.addEventListener("mousemove",(e)=>{
+
+    const rect = noBtn.getBoundingClientRect();
+
+    const centerX = rect.left + rect.width/2;
+    const centerY = rect.top + rect.height/2;
+
+    const distance = Math.hypot(
+        e.clientX-centerX,
+        e.clientY-centerY
+    );
+
+    if(distance < 120){
+
+        moveButton(e.clientX,e.clientY);
+
+    }
+
+});
+
+// ---------------------
+// YES
+// ---------------------
+
+yesBtn.addEventListener("click",()=>{
+
+    // Change background image
+    document.body.style.background =
+    'linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.15)), url("background_after.jpg")';
+
+    document.body.style.backgroundSize="cover";
+    document.body.style.backgroundPosition="center";
+    document.body.style.backgroundRepeat="no-repeat";
+
+    // Hide question
+    document.querySelector(".card").style.display="none";
+
+    // Show celebration
+    celebration.style.display="flex";
+
+    // Start fireflies
+    fireflyInterval=setInterval(createFirefly,180);
+
+});
+
+// ---------------------
+// Fireflies
+// ---------------------
+
+function createFirefly(){
+
+    const firefly = document.createElement("img");
+
+    firefly.src = "firefly.png";
+    firefly.className = "firefly";
+
+    // Random size
+    const size = 24 + Math.random() * 18;
+    firefly.style.width = size + "px";
+
+    // Spawn along the bottom
+    firefly.style.left = Math.random() * window.innerWidth + "px";
+    firefly.style.top = (window.innerHeight + 40) + "px";
+
+    // Every firefly gets a different wandering distance
+    const drift = 40 + Math.random() * 90;
+    firefly.style.setProperty("--drift", drift + "px");
+
+    // Different flying speeds
+ firefly.style.animationDuration =
+    (12 + Math.random() * 6) + "s, " +
+    (2.5 + Math.random() * 2) + "s";
+
+    // Random brightness
+    firefly.style.opacity = 0.5 + Math.random() * 0.5;
+
+    document.body.appendChild(firefly);
+
+    setTimeout(() => {
+        firefly.remove();
+    }, 17000);
+
+}
+
+</script>
+
+</body>
+</html>
