@@ -79,6 +79,13 @@ button{
 #no{
     position:fixed;
     z-index:1000;
+	
+	
+}
+
+#yes{
+    position:fixed;
+    z-index:1000;
 }
 
 #celebration{
@@ -220,7 +227,7 @@ button{
 <body>
 
 <div class="card">
-    <h1>Will you go to a cozy cabin in the woods with me? 🌲❤️</h1>
+    <h1> В уютна хижа, скрита във гората, ще дойдеш ли с мен, да споделим тишината? 🌲❤️</h1>
 
     <p>
         There will be hot chocolate ☕<br>
@@ -229,8 +236,8 @@ button{
     </p>
 
     <div class="buttons">
-        <button id="yes">Yes ❤️</button>
-        <button id="no">No 🙈</button>
+        <button id="yes">Да ❤️</button>
+        <button id="no">Не 👿</button>
     </div>
 </div>
 
@@ -238,7 +245,7 @@ button{
     <h1>🥰 YAY!! 🥰</h1>
 
     <p>
-        I can't wait for our little adventure together. ❤️🏕️
+        Нямам търпение за малкото ни приключение ❤️
     </p>
 </div>
 
@@ -250,15 +257,27 @@ const celebration = document.getElementById("celebration");
 
 window.addEventListener("load", () => {
 
-    const yesRect = yesBtn.getBoundingClientRect();
+    const gap = 20;   // space between buttons
 
-    noBtn.style.left = (yesRect.right + 40) + "px";
-    noBtn.style.top = yesRect.top + "px";
+    // Measure the buttons
+    const yesWidth = yesBtn.offsetWidth;
+    const noWidth = noBtn.offsetWidth;
 
-});
-window.addEventListener("load", () => {
-    noBtn.style.left = "60%";
-    noBtn.style.top = "55%";
+    // We want the GAP to be exactly in the middle of the screen
+    const center = window.innerWidth / 2;
+
+    const yesLeft = center - gap/2 - yesWidth;
+    const noLeft = center + gap/2;
+
+    const top = window.innerHeight * 0.63;
+
+    // Move both buttons
+    yesBtn.style.position = "fixed";
+    yesBtn.style.left = yesLeft + "px";
+    yesBtn.style.top = top + "px";
+
+    noBtn.style.left = noLeft + "px";
+    noBtn.style.top = top + "px";
 });
 
 let fireflyInterval;
