@@ -323,7 +323,7 @@ window.addEventListener("load", () => {
     const yesLeft = center - gap/2 - yesWidth;
     const noLeft = center + gap/2;
 
-    const top = window.innerHeight * 0.6;
+    const top = window.innerHeight * 0.7;
 
     // Move both buttons
     yesBtn.style.position = "fixed";
@@ -477,17 +477,20 @@ yesBtn.addEventListener("click",()=>{
 
 });
 
-noBtn.addEventListener("click",(e)=>{
+noBtn.addEventListener("click", (e) => {
 
     e.preventDefault();
 
-    explode(noBtn,"😈");
+    // Bigger devil explosion on a successful tap
+    explode(noBtn, ["😈"], 20);
 
+    // Get the current button position
     const rect = noBtn.getBoundingClientRect();
 
+    // Make it run away
     moveButton(
-        rect.left + rect.width/2,
-        rect.top + rect.height/2
+        rect.left + rect.width / 2,
+        rect.top + rect.height / 2
     );
 
 });
