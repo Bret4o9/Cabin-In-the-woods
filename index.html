@@ -258,7 +258,7 @@ button{
 @media (max-width: 768px) {
 
     h1{
-        font-size:27px;
+        font-size:30px;
         line-height:1.2;
     }
 
@@ -272,7 +272,7 @@ button{
     }
 
     #celebration h1{
-        font-size:48px;
+        font-size:30px;
     }
 
     #celebration p{
@@ -296,18 +296,42 @@ button{
 </div>
 
 <div id="celebration">
-    <h1>🥰 Хихи 🥰</h1>
+    <h1> Нямам търпение за малкото ни приключение ❤️</h1>
 
-    <p>
-        Нямам търпение за малкото ни приключение ❤️
     </p>
 </div>
+
+<audio id="forestMusic" loop>
+    <source src="forest.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="cabinMusic" loop>
+    <source src="cabin.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const celebration = document.getElementById("celebration");
+const forestMusic = document.getElementById("forestMusic");
+const cabinMusic = document.getElementById("cabinMusic");
+
+forestMusic.volume = 0.35;
+cabinMusic.volume = 0.35;
+
+function startMusic(){
+
+    forestMusic.play();
+
+    document.removeEventListener("click", startMusic);
+    document.removeEventListener("touchstart", startMusic);
+
+}
+
+document.addEventListener("click", startMusic);
+
+document.addEventListener("touchstart", startMusic);
 
 window.addEventListener("load", () => {
 
@@ -457,6 +481,11 @@ function explode(button, emoji){
 yesBtn.addEventListener("click",()=>{
 
     explode(yesBtn,"❤️");
+	
+    forestMusic.pause();
+    forestMusic.currentTime = 0;
+
+    cabinMusic.play();
 
     // Change background image
     document.body.style.background =
