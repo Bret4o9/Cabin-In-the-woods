@@ -482,7 +482,7 @@ yesBtn.addEventListener("click",()=>{
 	
     forestMusic.pause();
     forestMusic.currentTime = 0;
-    cabinMusic.play();
+	cabinMusic.play().catch(() => {});
 
     // Change background image
     document.body.style.background =
