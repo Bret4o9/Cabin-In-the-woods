@@ -322,16 +322,14 @@ cabinMusic.volume = 0.35;
 
 function startMusic(){
 
-    forestMusic.play();
 
-    document.removeEventListener("click", startMusic);
-    document.removeEventListener("touchstart", startMusic);
+    forestMusic.play().catch(() => {});
+
+    document.removeEventListener("pointerdown", startMusic);
 
 }
 
-document.addEventListener("click", startMusic);
-
-document.addEventListener("touchstart", startMusic);
+document.addEventListener("pointerdown", startMusic);
 
 window.addEventListener("load", () => {
 
@@ -484,7 +482,6 @@ yesBtn.addEventListener("click",()=>{
 	
     forestMusic.pause();
     forestMusic.currentTime = 0;
-
     cabinMusic.play();
 
     // Change background image
