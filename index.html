@@ -297,6 +297,10 @@ button{
 
 <div id="celebration">
     <h1> Нямам търпение за малкото ни приключение ❤️</h1>
+	
+	<button id="calendarBtn">
+    📅 Запази датата
+</button>
 
     </p>
 </div>
@@ -559,6 +563,21 @@ function createFirefly(){
     }, 17000);
 
 }
+
+const calendarBtn = document.getElementById("calendarBtn");
+
+calendarBtn.addEventListener("click", () => {
+
+    const url =
+        "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+        "&text=Cabin Adventure ❤" +
+        "&dates=20260727T100000/20260729T100000" +
+        "&location=Chalet Musala" +
+        "&details=Our little cabin adventure 🌲";
+
+    window.open(url, "_blank");
+
+});
 
 </script>
 
